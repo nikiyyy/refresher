@@ -8,11 +8,12 @@ class TopmoviesSpider(scrapy.Spider):
     allowed_domains = ['imdb.com']
     start_urls = ['https://www.imdb.com/chart/top/?ref_=nv_mv_250']
     count=1
+
     def parse(self, response):
         for i in response.css('td.titleColumn a::attr(href)').getall():
-            if self.count <2:
-                self.count+=1
-                yield scrapy.Request('http://imdb.com' + i, callback=self.movie_parse)
+            #if self.count <2:
+                #self.count+=1
+            yield scrapy.Request('http://imdb.com' + i, callback=self.movie_parse)
 
         
     def movie_parse(self, response):
